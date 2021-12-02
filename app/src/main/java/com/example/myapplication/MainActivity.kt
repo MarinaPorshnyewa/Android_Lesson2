@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private var textView7: TextView? = null
     private var textView8: TextView? = null
     private var textView9: TextView? = null
+    private var textView10: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         textView7 = findViewById<TextView>(R.id.textView7)
         textView8 = findViewById<TextView>(R.id.textView8)
         textView9 = findViewById<TextView>(R.id.textView9)
+        textView10 = findViewById<TextView>(R.id.textView10)
 
         //Task_1.1
         getFib()
@@ -71,6 +73,9 @@ class MainActivity : AppCompatActivity() {
 
             count2++
         }
+        //Task3 + Task4
+        val student: Util = Util(Student("Marina", 30, 9, 10))
+        textView10?.append("Сумма оценок: " + student.sumMark().toString())
     }
 
     //Task_1.1
