@@ -1,33 +1,8 @@
 package com.example.myapplication
 
-fun HouseOfGucci.information(): String{
-    return this.toString()
-}
+fun Film.getTitleFilm() = "Name: $nameFilm, Country: $countryFilm, Genre: $genre, Date: $date"
 
-fun KingRichard.information(): String{
-    return this.toString()
-}
+fun Series.getTitleSeries() = "Name: $nameSeries, Country: $countrySeries, Number of seasons: $numberOfSeasons, Genre: $genre"
 
-fun Eternals.information(): String{
-    return this.toString()
-}
+fun Cartoon.getTitleCartoon() = "Name: $nameCartoon, Country: $countryCartoon, Date: $date"
 
-fun Encanto.information(): String{
-    return this.toString()
-}
-
-fun TheBossBaby.information(): String{
-    return this.toString()
-}
-
-fun EmilyInParis.information(): String{
-    return this.toString()
-}
-
-fun SexEducation.information(): String{
-    return this.toString()
-}
-
-fun GinnyAndGeorgia.information(): String{
-    return this.toString()
-}

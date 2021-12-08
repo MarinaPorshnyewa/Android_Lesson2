@@ -26,61 +26,88 @@ class MainActivity2 : AppCompatActivity() {
         previous = findViewById(R.id.button4)
         delete = findViewById(R.id.button6)
 
-        val film: ArrayList<Cinema> = arrayListOf(
-            HouseOfGucci("HouseOfGucci"),
-            KingRichard("KingRichard"),
-            Eternals("Eternals"),
-            Encanto("Encanto"),
-            TheBossBaby("TheBossBaby"),
-            EmilyInParis("EmilyInParis"),
-            SexEducation("SexEducation"),
-            GinnyAndGeorgia("GinnyAndGeorgia")
+
+        val cinema: ArrayList<Cinema> = arrayListOf(
+            Film("House of Gucci", mutableSetOf("Canada", "USA"), mutableSetOf("biography", "drama", "crimes", "thriller"), 2021),
+            Film("King Richard", mutableSetOf("USA"), mutableSetOf("drama", "sport"), 2021),
+            Series("Emily in Paris", mutableSetOf("USA"), 1, mutableSetOf("comedy-drama", "romantic comedy")),
+            Series("Ginny and Georgia", mutableSetOf("USA"), 1, mutableSetOf("comedy-drama")),
+            Cartoon("Encanto", mutableSetOf("USA"), 2021),
+            Cartoon("TheBossBaby", mutableSetOf("USA"), 2017)
         )
 
-        add.setOnClickListener(){
-            if(n < film.size) {
-                WishList.myPreferences.add(film[n])
+        fun info(n: Int){
+            val film = cinema[n]
+            when(film){
+                is Film -> {
+                    textView10?.text = film.getTitleFilm()
+                }
+                is Series -> {
+                    textView10?.text = film.getTitleSeries()
+                }
+                is Cartoon -> {
+                    textView10?.text = film.getTitleCartoon()
+                }
+            }
+        }
+
+
+        add.setOnClickListener() {
+            if (n < cinema.size) {
+                val film = cinema[n]
+                WishList.myPreferences.add(film)
                 n++
-            }else{
+            } else {
                 textView10?.text = ""
             }
         }
 
-        next.setOnClickListener(){
-            if(textView10?.text == "")
-            {
-                textView10?.text = WishList.myPreferences[0].toString()
-                nNext = 0
-            }else if(WishList.myPreferences.isEmpty()){
-                textView10?.text = ""
-            }else if(WishList.myPreferences.size == (nNext+1)){
-                textView10?.text = WishList.myPreferences[nNext].toString()
-            }else{
-                nNext++
-                textView10?.text = WishList.myPreferences[nNext].toString()
-                nPrevious = (nNext-1)
-            }
-
-        }
-
-        previous.setOnClickListener(){
-            if(textView10?.text == "" || textView10?.text == WishList.myPreferences[0].toString())
-            {
-                textView10?.text = WishList.myPreferences[0].toString()
-                nNext = 0
-
-            }else if(WishList.myPreferences.isEmpty()){
-                textView10?.text = ""
-            }else{
-                textView10?.text = WishList.myPreferences[nPrevious].toString()
-                nNext = nPrevious
-                nPrevious--
+        next.setOnClickListener {
+            when {
+                WishList.myPreferences.isEmpty() -> {
+                    textView10?.text = ""
+                }
+                textView10?.text == "" -> {
+                    info(0)
+                    nNext = 0
+                }
+                WishList.myPreferences.size == (nNext + 1) -> {
+                    info(nNext)
+                }
+                else -> {
+                    nNext++
+                    info(nNext)
+                    nPrevious = (nNext - 1)
+                }
 
             }
         }
 
-        delete.setOnClickListener(){
-            WishList.myPreferences.removeAt(nNext)
+        previous.setOnClickListener {
+            when{
+                WishList.myPreferences.isEmpty() -> {
+                    textView10?.text = ""
+                }
+                textView10?.text == "" || textView10?.text == WishList.myPreferences[0].toString() -> {
+                    info(0)
+                    nNext = 0
+                }
+                nPrevious < 0 -> {
+                    info(0)
+                }
+                else -> {
+                    info(nPrevious)
+                    nNext = nPrevious
+                    nPrevious--
+                }
+            }
+        }
+
+        delete.setOnClickListener {
+
+            //WishList.myPreferences.removeAt(nPrevious)
+            //WishList.myPreferences.removeAt(0)
+            //WishList.myPreferences.removeAt(2)
             textView10?.text = ""
 
         }
